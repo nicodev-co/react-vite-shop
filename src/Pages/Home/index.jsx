@@ -1,19 +1,21 @@
 import { useState, useEffect } from 'react';
 import Card from '../../Components/Card';
+import ProductDetail from '../../Components/ProductDetail';
 
 const Home = () => {
   const [items, setItems] = useState([]);
   useEffect(() => {
-
     const fetchData = async () => {
-        try {     
-            const response = await fetch('https://api.escuelajs.co/api/v1/products');
-            const data = await response.json();
-            setItems(data);
-        } catch (error) {
-            console.error(`Ha ocurrido un error: ${error}`);
-        }
-    }
+      try {
+        const response = await fetch(
+          'https://api.escuelajs.co/api/v1/products'
+        );
+        const data = await response.json();
+        setItems(data);
+      } catch (error) {
+        console.error(`Ha ocurrido un error: ${error}`);
+      }     
+    };
 
     fetchData();
   }, []);
@@ -26,6 +28,7 @@ const Home = () => {
           <Card key={item.id} data={item} />
         ))}
       </div>
+      <ProductDetail />
     </div>
   );
 };
