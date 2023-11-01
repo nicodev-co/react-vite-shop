@@ -9,13 +9,13 @@ function MyOrders() {
   return (
     <>
       <div className='flex justify-center items-center w-80 relative'>
-        <h1>My Orders</h1>
+        <h1 className='text-center font-bold text-lg py-6'>My Orders</h1>
       </div>
       {order.map((order, index) => (
         <Link key={index} to={`/my-orders/${index}`}>
           <OrdersCard
             totalPrice={order.totalPrice}
-            totalProduct={order.totalProducts}
+            totalProducts={order.totalProducts}
           />
         </Link>
       ))}

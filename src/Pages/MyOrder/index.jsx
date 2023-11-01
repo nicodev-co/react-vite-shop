@@ -17,7 +17,7 @@ function MyOrder() {
         <Link to={'/my-orders'} className='absolute left-0'>
           <HiArrowUturnLeft className='h-6 w-6 text-black' />
         </Link>
-        <h1>My Order</h1>
+        <h1 className='text-center font-bold text-lg py-6'>My Order</h1>
       </div>
       <div className='flex flex-col w-80'>
         {order?.[index]?.products.map((product) => (

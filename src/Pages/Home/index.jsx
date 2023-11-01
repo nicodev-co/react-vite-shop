@@ -22,7 +22,7 @@ const Home = () => {
 
   return (
     <div>
-      <h2 className='text-center font-bold text-lg py-6'>HOME</h2>
+      <h1 className='text-center font-bold text-lg py-6'>HOME</h1>
       <div className='grid gap-4 grid-cols-4 w-full'>
         {items?.map((item) => (
           <Card key={item.id} data={item} />
