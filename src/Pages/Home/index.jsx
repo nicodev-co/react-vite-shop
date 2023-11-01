@@ -14,7 +14,7 @@ const Home = () => {
         setItems(data);
       } catch (error) {
         console.error(`Ha ocurrido un error: ${error}`);
-      }     
+      }
     };
 
     fetchData();
@@ -22,13 +22,13 @@ const Home = () => {
 
   return (
     <div>
-      <h2>HOME</h2>
+      <h2 className='text-center font-bold text-lg py-6'>HOME</h2>
       <div className='grid gap-4 grid-cols-4 w-full'>
         {items?.map((item) => (
           <Card key={item.id} data={item} />
         ))}
+        <ProductDetail />
       </div>
-      <ProductDetail />
     </div>
   );
 };

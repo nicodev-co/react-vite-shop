@@ -27,7 +27,30 @@ const Card = (data) => {
     setCartProducts([...cartProducts, productData]);
     openCheckoutSideMenu();
     closeProductDetail();
-  
+  };
+
+  const renderButtom = (id) => {
+    const isInCart =
+      cartProducts.filter((product) => product.id === id).length > 0;
+
+    if (isInCart) {
+      return (
+        <button className='w-40 h-12 m-auto cursor-pointer rounded-3xl border-2 border-[#9748FF] shadow-[inset_0px_-2px_0px_1px_#9748FF] bg-[#9748FF]'>
+          <span className='font-bold  text-white'>Added</span>
+        </button>
+      );
+    } else {
+      return (
+        <button
+          className='w-40 h-12 m-auto bg-white cursor-pointer rounded-3xl border-2 border-[#9748FF] shadow-[inset_0px_-2px_0px_1px_#9748FF] group hover:bg-[#9748FF] transition duration-300 ease-in-out'
+          onClick={(event) => addProductCart(event, data.data)}
+        >
+          <span className='font-bold text-[#333] group-hover:text-white'>
+            Add
+          </span>
+        </button>
+      );
+    }
   };
 
   return (
@@ -53,14 +76,8 @@ const Card = (data) => {
         <span className='text-sm font-light'>{data.data.title}</span>
         <span className='text-lg font-bold'>${data.data.price}</span>
       </p>
-      <button
-        className='w-40 h-12 m-auto bg-white cursor-pointer rounded-3xl border-2 border-[#9748FF] shadow-[inset_0px_-2px_0px_1px_#9748FF] group hover:bg-[#9748FF] transition duration-300 ease-in-out'
-        onClick={(event) => addProductCart(event, data.data)}
-      >
-        <span className='font-bold text-[#333] group-hover:text-white'>
-          Add
-        </span>
-      </button>
+
+      {renderButtom(data.data.id)}
     </div>
   );
 };
