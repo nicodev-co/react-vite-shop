@@ -11,12 +11,14 @@ const Card = (data) => {
     setCartProducts,
     cartProducts,
     openCheckoutSideMenu,
+    closeCheckoutSideMenu,
     closeProductDetail,
   } = useContext(ShoppingCartContext);
 
   const showProduct = (productDetail) => {
     openProductDetail();
     setProductToShow(productDetail);
+    closeCheckoutSideMenu();
   };
 
   const addProductCart = (event, productData) => {
@@ -25,7 +27,7 @@ const Card = (data) => {
     setCartProducts([...cartProducts, productData]);
     openCheckoutSideMenu();
     closeProductDetail();
-    console.log(cartProducts);
+  
   };
 
   return (

@@ -1,10 +1,13 @@
 import { useContext } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { ShoppingCartContext } from '../../Context';
+import OrderCard from '../OrderCard';
 
 const CheckoutSideMenu = () => {
-  const { isCheckoutSideMenuOpen, closeCheckoutSideMenu } =
+  const { isCheckoutSideMenuOpen, closeCheckoutSideMenu, cartProducts } =
     useContext(ShoppingCartContext);
+
+  console.log(cartProducts);
 
   return (
     <aside
@@ -17,6 +20,16 @@ const CheckoutSideMenu = () => {
         <button onClick={() => closeCheckoutSideMenu(false)}>
           <AiOutlineClose className='text-blue-500' />
         </button>
+      </div>
+      <div className='p-6'>
+        {cartProducts.map((product) => (
+          <OrderCard
+            key={product.id}
+            title={product.title}
+            imageUrl={product.images?.[0]}
+            price={product.price}
+          />
+        ))}
       </div>
     </aside>
   );
