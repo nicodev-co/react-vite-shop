@@ -1,10 +1,10 @@
 import { useContext } from 'react';
-import './styles.css';
 import { AiOutlineClose } from 'react-icons/ai';
 import { ShoppingCartContext } from '../../Context';
 
 const ProductDetail = () => {
-  const { isProductDetailOpen,closeProductDetail } = useContext(ShoppingCartContext);
+  const { isProductDetailOpen, closeProductDetail, productToShow } =
+    useContext(ShoppingCartContext);
 
   return (
     <aside
@@ -18,6 +18,20 @@ const ProductDetail = () => {
           <AiOutlineClose className='text-blue-500' />
         </button>
       </div>
+      <figure className='p-6'>
+        <img
+          className='w-full h-full rounded-lg'
+          src={productToShow.images?.[0]}
+          alt={productToShow.title}
+        />
+      </figure>
+      <p className='flex flex-col p-6'>
+        <span className='font-medium text-2xl mb-2'>
+          ${productToShow.price}
+        </span>
+        <span className='font-medium text-md'>{productToShow.title}</span>
+        <span className='font-light text-sm'>{productToShow.description}</span>
+      </p>
     </aside>
   );
 };
