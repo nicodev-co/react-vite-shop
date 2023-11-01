@@ -1,25 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useContext } from 'react';
 import Card from '../../Components/Card';
 import ProductDetail from '../../Components/ProductDetail';
+import { ShoppingCartContext } from '../../Context';
 
 const Home = () => {
-  const [items, setItems] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          'https://api.escuelajs.co/api/v1/products'
-        );
-        const data = await response.json();
-        setItems(data);
-      } catch (error) {
-        console.error(`Ha ocurrido un error: ${error}`);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+  const { items } = useContext(ShoppingCartContext);
   return (
     <div>
       <h1 className='text-center font-bold text-lg py-6'>HOME</h1>
