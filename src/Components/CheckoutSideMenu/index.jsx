@@ -5,13 +5,31 @@ import OrderCard from '../OrderCard';
 import { totalPrice } from '../../Utils';
 
 const CheckoutSideMenu = () => {
-  const { isCheckoutSideMenuOpen, closeCheckoutSideMenu, cartProducts, setCartProducts } =
-    useContext(ShoppingCartContext);
+  const {
+    isCheckoutSideMenuOpen,
+    closeCheckoutSideMenu,
+    cartProducts,
+    setCartProducts,
+    order,
+    setOrder,
+  } = useContext(ShoppingCartContext);
 
   const handleDelete = (id) => {
-    const filteredProducts = cartProducts.filter(product => product.id != id);
+    const filteredProducts = cartProducts.filter((product) => product.id != id);
     setCartProducts(filteredProducts);
-  }
+  };
+
+  const handleCheckout = () => {
+    const orderToAdd = {
+      date: '01-11-2023',
+      products: cartProducts,
+      totalProducts: cartProducts.length,
+      totalPrice: totalPrice(cartProducts),
+    };
+
+    setOrder([...order, orderToAdd]);
+    setCartProducts([]);
+  };
 
   return (
     <aside
@@ -25,7 +43,7 @@ const CheckoutSideMenu = () => {
           <AiOutlineClose className='text-blue-500' />
         </button>
       </div>
-      <div className='p-6 overflow-y-auto'>
+      <div className='p-6 overflow-y-auto flex-1'>
         {cartProducts.map((product) => (
           <OrderCard
             key={product.id}
@@ -37,11 +55,14 @@ const CheckoutSideMenu = () => {
           />
         ))}
       </div>
-      <div className='px-6'>
-          <p className='flex justify-between items-center'>
-            <span className='font-medium'>Total:</span>
-            <span className='font-bold text-2xl'>${totalPrice(cartProducts)}</span>
-          </p>
+      <div className='px-6 mb-6'>
+        <p className='flex justify-between items-center mb-2'>
+          <span className='font-medium'>Total:</span>
+          <span className='font-bold text-2xl'>
+            ${totalPrice(cartProducts)}
+          </span>
+        </p>
+        <button className='w-full bg-black py-3 text-white rounded-lg' onClick={() => handleCheckout()}>Checkout</button>
       </div>
     </aside>
   );
