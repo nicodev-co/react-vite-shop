@@ -24,7 +24,7 @@ const Card = (data) => {
   const addProductCart = (event, productData) => {
     event.stopPropagation();
     setCount(count + 1);
-    setCartProducts([...cartProducts, productData]);
+    setCartProducts([...cartProducts, {...productData,amount:1}]);
     openCheckoutSideMenu();
     closeProductDetail();
   };

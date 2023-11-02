@@ -27,6 +27,7 @@ function MyOrder() {
             title={product.title}
             imageUrl={product.images?.[0]}
             price={product.price}
+            amount={product.amount}
           />
         ))}
       </div>

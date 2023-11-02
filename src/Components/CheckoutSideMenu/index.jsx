@@ -21,6 +21,31 @@ const CheckoutSideMenu = () => {
     setCartProducts(filteredProducts);
   };
 
+  const handleAmount = (id, action) => {
+    const filteredProducts = cartProducts.map((product) => {
+      if (product.id == id) {
+        if (action == 'INCREMENT')
+          return { ...product, amount: product.amount + 1 };
+        if (action == 'DECREMENT' && product.amount > 1)
+          return { ...product, amount: product.amount - 1 };
+      }
+
+      return product;
+    });
+    setCartProducts(filteredProducts);
+  };
+
+  const handleChangeAmount = (event, id) => {
+    const filteredProducts = cartProducts.map((product) => {
+      if (product.id == id) {
+        return { ...product, amount: parseInt(event.target.value) || 1 };
+      }
+
+      return product;
+    });
+    setCartProducts(filteredProducts);
+  };
+
   const handleCheckout = () => {
     const orderToAdd = {
       date: '01-11-2023',
@@ -54,6 +79,9 @@ const CheckoutSideMenu = () => {
             title={product.title}
             imageUrl={product.images?.[0]}
             price={product.price}
+            handleAmount={handleAmount}
+            handleChangeAmount={handleChangeAmount}
+            amount={product.amount}
             handleDelete={handleDelete}
           />
         ))}
@@ -66,7 +94,12 @@ const CheckoutSideMenu = () => {
           </span>
         </p>
         <Link to={'/my-orders/last'}>
-          <button className='w-full bg-black py-3 text-white rounded-lg' onClick={() => handleCheckout()}>Checkout</button>
+          <button
+            className='w-full bg-black py-3 text-white rounded-lg'
+            onClick={() => handleCheckout()}
+          >
+            Checkout
+          </button>
         </Link>
       </div>
     </aside>

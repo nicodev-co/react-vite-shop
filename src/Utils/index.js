@@ -4,5 +4,5 @@
  * @returns {number} Total price
  */
 export const totalPrice = (products) => {
-  return products.reduce((total, product) => total + product.price, 0);
+  return products.reduce((total, product) => total + (product.price * product.amount), 0);
 };
