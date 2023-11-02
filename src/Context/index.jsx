@@ -5,7 +5,6 @@ const ShoppingCartContext = createContext();
 const ShoppingCartProvider = ({ children }) => {
   // Shopping cart - Increment quantity
   const [count, setCount] = useState(0);
-  const [amount, setAmount] = useState(1);
 
   // Product Detail - Open/Close
   const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
@@ -114,12 +113,9 @@ const ShoppingCartProvider = ({ children }) => {
         setItems,
         searchByTitle,
         setSearchByTitle,
-        searchByTitle,
         filteredItems,
         searchByCategory,
         setSearchByCategory,
-        amount,
-        setAmount,
       }}
     >
       {children}
