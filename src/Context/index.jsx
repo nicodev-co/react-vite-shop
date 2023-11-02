@@ -59,8 +59,6 @@ const ShoppingCartProvider = ({ children }) => {
       setFilteredItems(filteredItemsByTitle(items, searchByTitle));
   }, [items, searchByTitle]);
 
-  console.log(filteredItems);
-
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -82,7 +80,8 @@ const ShoppingCartProvider = ({ children }) => {
         setItems,
         searchByTitle,
         setSearchByTitle,
-        searchByTitle
+        searchByTitle,
+        filteredItems
       }}
     >
       {children}

@@ -4,21 +4,19 @@ import ProductDetail from '../../Components/ProductDetail';
 import { ShoppingCartContext } from '../../Context';
 
 const Home = () => {
-  const { items, setSearchByTitle,filteredItems } = useContext(ShoppingCartContext);
+  const { items, setSearchByTitle, filteredItems, searchByTitle } =
+    useContext(ShoppingCartContext);
 
   const renderView = () => {
+    const products = searchByTitle?.length > 0 ? filteredItems : items;
 
-    if (setSearchByTitle?.length > 0) {
-      if (filteredItems?.length > 0) {
-        
-        return filteredItems?.map((item) => <Card key={item.id} data={item} />);
-      }else {
-       return <div>No hay registros</div>
-      }
+    if (products?.length > 0) {
+      return products?.map((item) => <Card key={item.id} data={item} />);
     } else {
-      return items?.map((item) => <Card key={item.id} data={item} />);
+      return <div>No products founds</div>;
     }
   };
+
   return (
     <div>
       <h1 className='text-center font-bold text-lg py-6'>HOME</h1>
