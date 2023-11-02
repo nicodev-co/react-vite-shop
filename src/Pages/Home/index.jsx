@@ -8,8 +8,9 @@ const Home = () => {
     useContext(ShoppingCartContext);
 
   const renderView = () => {
-    const products = searchByTitle?.length > 0 ? filteredItems : items;
 
+    const products =  filteredItems ?? items;
+    
     if (products?.length > 0) {
       return products?.map((item) => <Card key={item.id} data={item} />);
     } else {

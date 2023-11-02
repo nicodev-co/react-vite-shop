@@ -4,7 +4,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 const OrderCard = (props) => {
   const { id, title, imageUrl, price, handleDelete } = props;
   let renderOutlineClose;
-  if (renderOutlineClose) {
+  if (handleDelete) {
     renderOutlineClose = <AiOutlineClose className='text-blue-500' />;
   }
 

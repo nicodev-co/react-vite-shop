@@ -30,7 +30,10 @@ const ShoppingCartProvider = ({ children }) => {
   const [filteredItems, setFilteredItems] = useState(null);
 
   // Get products by title
-  const [searchByTitle, setSearchByTitle] = useState('');
+  const [searchByTitle, setSearchByTitle] = useState(null);
+
+  // Get products by category
+  const [searchByCategory, setSearchByCategory] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,16 +51,46 @@ const ShoppingCartProvider = ({ children }) => {
     fetchData();
   }, []);
 
-  const filteredItemsByTitle = (items, searchByTitle) => {
-    return items?.filter((item) =>
-      item.title.toLowerCase().includes(searchByTitle.toLowerCase())
-    );
+  const filterItems = (items, searchBy, key) => {
+    return items?.filter((item) => {
+      const value = key.split('.').reduce((obj, k) => obj?.[k], item);
+      return value && value.toLowerCase().includes(searchBy.toLowerCase());
+    });
+  };
+
+  const filterBy = ({ searchType, items, searchByTitle, searchByCategory }) => {
+    if (searchType === 'BY_TITLE') {
+      return filterItems(items, searchByTitle, 'title');
+    }
+    if (searchType === 'BY_CATEGORY') {
+      return filterItems(items, searchByCategory, 'category.name');
+    }
+    if (searchType === 'BY_TITLE_AND_CATEGORY') {
+      return filterItems(
+        filterItems(items, searchByCategory, 'category.name'),
+        searchByTitle,
+        'title'
+      );
+    }
+
+    return items;
   };
 
   useEffect(() => {
-    if (searchByTitle)
-      setFilteredItems(filteredItemsByTitle(items, searchByTitle));
-  }, [items, searchByTitle]);
+    let searchType = null;
+    if (searchByTitle && searchByCategory) searchType = 'BY_TITLE_AND_CATEGORY';
+    else if (searchByTitle) searchType = 'BY_TITLE';
+    else if (searchByCategory) searchType = 'BY_CATEGORY';
+
+    setFilteredItems(
+      filterBy({
+        searchType,
+        items,
+        searchByTitle,
+        searchByCategory,
+      })
+    );
+  }, [items, searchByTitle, searchByCategory]);
 
   return (
     <ShoppingCartContext.Provider
@@ -81,7 +114,9 @@ const ShoppingCartProvider = ({ children }) => {
         searchByTitle,
         setSearchByTitle,
         searchByTitle,
-        filteredItems
+        filteredItems,
+        searchByCategory,
+        setSearchByCategory,
       }}
     >
       {children}

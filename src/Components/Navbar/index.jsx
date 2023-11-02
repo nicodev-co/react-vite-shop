@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { SiShopee } from 'react-icons/si';
 
 const Navbar = () => {
-  const context = useContext(ShoppingCartContext);
+  const {cartProducts,setSearchByCategory} = useContext(ShoppingCartContext);
   const activeStyle = 'underline underline-offset-4';
 
   return (
@@ -16,6 +16,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to='/'
+            onClick={() => setSearchByCategory()}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             All
@@ -24,6 +25,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to='/clothes'
+            onClick={() => setSearchByCategory('clothes')}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Clothes
@@ -32,6 +34,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to='/electronics'
+            onClick={() => setSearchByCategory('electronics')}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Electronics
@@ -40,6 +43,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to='/furnitures'
+            onClick={() => setSearchByCategory('furnitures')}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Furnitures
@@ -48,6 +52,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to='/toys'
+            onClick={() => setSearchByCategory('toys')}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Toys
@@ -56,6 +61,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to='/others'
+            onClick={() => setSearchByCategory('others')}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Others
@@ -89,7 +95,7 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li className='flex items-center gap-1'>
-          <SiShopee /> {context.count}
+          <SiShopee /> {cartProducts.length}
         </li>
       </ul>
     </nav>
