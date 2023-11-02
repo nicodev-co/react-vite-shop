@@ -1,11 +1,11 @@
 import React from 'react';
-import { AiOutlineClose } from 'react-icons/ai';
+import { BsFillTrashFill } from 'react-icons/bs';
 
 const OrderCard = (props) => {
   const { id, title, imageUrl, price, handleDelete } = props;
-  let renderOutlineClose;
+  let renderBsFillTrashFill;
   if (handleDelete) {
-    renderOutlineClose = <AiOutlineClose className='text-blue-500' />;
+    renderBsFillTrashFill = <BsFillTrashFill className='text-red-500' />;
   }
 
   return (
@@ -22,7 +22,7 @@ const OrderCard = (props) => {
       </div>
       <div className='flex items-center gap-2'>
         <p className='text-lg font-semibold'>{price}</p>
-        <button onClick={() => handleDelete(id)}>{renderOutlineClose}</button>
+        <button onClick={() => handleDelete(id)}>{renderBsFillTrashFill}</button>
       </div>
     </div>
   );
