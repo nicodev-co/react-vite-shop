@@ -35,14 +35,14 @@ const Card = (data) => {
 
     if (isInCart) {
       return (
-        <button className='w-40 h-12 m-auto cursor-pointer rounded-3xl border-2 border-[#9748FF] shadow-[inset_0px_-2px_0px_1px_#9748FF] bg-[#9748FF]'>
+        <button className='w-24 h-10 m-auto cursor-pointer rounded-3xl border-2 border-[#9748FF] shadow-[inset_0px_-2px_0px_1px_#9748FF] bg-[#9748FF]'>
           <span className='font-bold  text-white'>Added</span>
         </button>
       );
     } else {
       return (
         <button
-          className='w-40 h-12 m-auto bg-white cursor-pointer rounded-3xl border-2 border-[#9748FF] shadow-[inset_0px_-2px_0px_1px_#9748FF] group hover:bg-[#9748FF] transition duration-300 ease-in-out'
+          className='w-24 h-10 m-auto bg-white cursor-pointer rounded-3xl border-2 border-[#9748FF] shadow-[inset_0px_-2px_0px_1px_#9748FF] group hover:bg-[#9748FF] transition duration-300 ease-in-out'
           onClick={(event) => addProductCart(event, data.data)}
         >
           <span className='font-bold text-[#333] group-hover:text-white'>
