@@ -42,8 +42,8 @@ const Navbar = () => {
         </li>
         <li>
           <NavLink
-            to='/furnitures'
-            onClick={() => setSearchByCategory('furnitures')}
+            to='/furniture'
+            onClick={() => setSearchByCategory('furniture')}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Furnitures
