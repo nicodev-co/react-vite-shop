@@ -3,6 +3,12 @@ import { createContext, useState, useEffect } from 'react';
 const ShoppingCartContext = createContext();
 
 const ShoppingCartProvider = ({ children }) => {
+  // Sign Out
+  const [signOut, setSignOut] = useState(false);
+
+  // Account
+  const [account, setAccount] = useState(false);
+
   // Shopping cart - Increment quantity
   const [count, setCount] = useState(0);
 
@@ -35,6 +41,27 @@ const ShoppingCartProvider = ({ children }) => {
   // Get products by category
   const [searchByCategory, setSearchByCategory] = useState(null);
 
+  const initializeLocalStorage = () => {
+    const signOut = localStorage.getItem('sign-out');
+    const account = localStorage.getItem('account');
+    let parseSignOut = false;
+    let parseAccount = {};
+
+    if (!signOut) {
+      localStorage.setItem('sign-out', false);
+    } else {
+      parseSignOut = JSON.parse(signOut);
+      setSignOut(parseSignOut);
+    }
+
+    if (!account) {
+      localStorage.setItem('account', JSON.stringify({}));
+    } else {
+      parseAccount = JSON.parse(account);
+      setAccount(parseAccount);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -49,6 +76,7 @@ const ShoppingCartProvider = ({ children }) => {
     };
 
     fetchData();
+    initializeLocalStorage();
   }, []);
 
   const filterItems = (items, searchBy, key) => {
@@ -116,6 +144,10 @@ const ShoppingCartProvider = ({ children }) => {
         filteredItems,
         searchByCategory,
         setSearchByCategory,
+        signOut,
+        setSignOut,
+        account,
+        setAccount,
       }}
     >
       {children}
