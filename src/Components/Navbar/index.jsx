@@ -1,16 +1,11 @@
 import { useContext } from 'react';
 import { ShoppingCartContext } from '../../Context';
 import { NavLink } from 'react-router-dom';
-import { SiShopee } from 'react-icons/si';
+import ShoppingCart from '../ShoppingCart';
 
 const Navbar = () => {
-  const {
-    cartProducts,
-    setSearchByCategory,
-    openCheckoutSideMenu,
-    setSignOut,
-    signOut,
-  } = useContext(ShoppingCartContext);
+  const { setSearchByCategory, setSignOut, signOut } =
+    useContext(ShoppingCartContext);
   const activeStyle = 'underline underline-offset-4';
   const handledSignOut = () => {
     localStorage.setItem('sign-out', JSON.stringify(true));
@@ -133,15 +128,7 @@ const Navbar = () => {
         )}
 
         <li className='flex items-center gap-1'>
-          <button
-            onClick={() => openCheckoutSideMenu()}
-            className='flex justify-between items-center gap-2 relative'
-          >
-            <SiShopee className='text-lg group hover:text-xl' />{' '}
-            <span className='absolute -top-2 -right-3 bg-[#9748FF] px-1 rounded-2xl font-bold text-white text-xs'>
-              {cartProducts.length}
-            </span>
-          </button>
+          <ShoppingCart />
         </li>
       </ul>
     </nav>
