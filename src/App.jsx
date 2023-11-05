@@ -1,5 +1,6 @@
-import { useRoutes, BrowserRouter } from 'react-router-dom';
-import { ShoppingCartProvider } from './Context';
+import { useContext } from 'react';
+import { useRoutes, BrowserRouter, Navigate } from 'react-router-dom';
+import { ShoppingCartProvider, initializeLocalStorage, ShoppingCartContext } from './Context';
 import Home from './Pages/Home';
 import MyAccount from './Pages/MyAccount';
 import MyOrder from './Pages/MyOrder';
@@ -11,9 +12,20 @@ import CheckoutSideMenu from './Components/CheckoutSideMenu';
 import './App.css';
 
 const AppRoutes = () => {
+  const { account, signOut } = useContext(ShoppingCartContext);
+  const accountLocalStorage = localStorage.getItem('account');
+  const parseAccount = JSON.parse(accountLocalStorage);
+  const noAccountLocalStorage = parseAccount
+    ? Object.keys(parseAccount).length === 0
+    : true;
+  const noAccountLocalState = account
+    ? Object.keys(account).length === 0
+    : true;
+  const hasUserAccount = !noAccountLocalStorage || !noAccountLocalState;
+
   let routes = useRoutes([
-    { path: '/', element: <Home /> },
-    { path: '/:category', element: <Home /> },
+    { path: '/', element: hasUserAccount && !signOut ? <Home /> : <Navigate replace to={'/sign-in'} /> },
+    { path: '/:category', element: hasUserAccount && !signOut ? <Home /> : <Navigate replace to={'/sign-in'} /> },
     { path: '/my-account', element: <MyAccount /> },
     { path: '/my-order', element: <MyOrder /> },
     { path: '/my-orders', element: <MyOrders /> },
@@ -27,6 +39,9 @@ const AppRoutes = () => {
 };
 
 function App() {
+
+  initializeLocalStorage();
+
   return (
     <ShoppingCartProvider>
       <BrowserRouter>

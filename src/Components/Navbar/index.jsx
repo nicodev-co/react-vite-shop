@@ -9,22 +9,23 @@ const Navbar = () => {
     setSearchByCategory,
     openCheckoutSideMenu,
     setSignOut,
-    setAccount,
     signOut,
   } = useContext(ShoppingCartContext);
   const activeStyle = 'underline underline-offset-4';
   const handledSignOut = () => {
     localStorage.setItem('sign-out', JSON.stringify(true));
-    localStorage.setItem('account', JSON.stringify({}));
     setSignOut(true);
-    setAccount({});
   };
 
   return (
     <nav className='flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 bg-white border-b-2 border-[#9748FF]  text-sm font-light'>
       <ul className='flex items-center gap-3'>
         <li className='font-bold text-xl'>
-          <NavLink to='/' className={'text-[#9748FF]'}>
+          <NavLink
+            to={`${signOut ? 'sign-in' : '/'}`}
+            className={'text-[#9748FF]'}
+            onClick={() => setSearchByCategory()}
+          >
             Shopi
           </NavLink>
         </li>
@@ -84,7 +85,7 @@ const Navbar = () => {
         </li>
       </ul>
       <ul className='flex items-center gap-3'>
-        {signOut ? (
+        {!signOut ? (
           <>
             <li className='text-black/60'>nicodev26@gmail.com</li>
             <li>

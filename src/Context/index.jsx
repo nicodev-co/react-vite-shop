@@ -2,9 +2,29 @@ import { createContext, useState, useEffect } from 'react';
 
 const ShoppingCartContext = createContext();
 
+export const initializeLocalStorage = () => {
+  const signOut = localStorage.getItem('sign-out');
+  const account = localStorage.getItem('account');
+  let parseSignOut = true;
+  let parseAccount = {};
+
+  if (!signOut) {
+    localStorage.setItem('sign-out', true);
+  } else {
+    parseSignOut = JSON.parse(signOut);
+  }
+
+  if (!account) {
+    localStorage.setItem('account', JSON.stringify({}));
+  } else {
+    parseAccount = JSON.parse(account);
+  }
+};
+
+
 const ShoppingCartProvider = ({ children }) => {
   // Sign Out
-  const [signOut, setSignOut] = useState(false);
+  const [signOut, setSignOut] = useState(true);
 
   // Account
   const [account, setAccount] = useState(false);
@@ -41,27 +61,6 @@ const ShoppingCartProvider = ({ children }) => {
   // Get products by category
   const [searchByCategory, setSearchByCategory] = useState(null);
 
-  const initializeLocalStorage = () => {
-    const signOut = localStorage.getItem('sign-out');
-    const account = localStorage.getItem('account');
-    let parseSignOut = false;
-    let parseAccount = {};
-
-    if (!signOut) {
-      localStorage.setItem('sign-out', false);
-    } else {
-      parseSignOut = JSON.parse(signOut);
-      setSignOut(parseSignOut);
-    }
-
-    if (!account) {
-      localStorage.setItem('account', JSON.stringify({}));
-    } else {
-      parseAccount = JSON.parse(account);
-      setAccount(parseAccount);
-    }
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -76,7 +75,7 @@ const ShoppingCartProvider = ({ children }) => {
     };
 
     fetchData();
-    initializeLocalStorage();
+    
   }, []);
 
   const filterItems = (items, searchBy, key) => {
