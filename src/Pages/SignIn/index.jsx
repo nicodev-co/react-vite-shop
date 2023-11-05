@@ -1,11 +1,12 @@
 import { useContext, useRef } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { ShoppingCartContext } from '../../Context';
 
 function SignIn() {
   const { account, setAccount, setSignOut } = useContext(ShoppingCartContext);
+  const navigate = useNavigate();
   const form = useRef(null);
 
   const accountLocalStorage = localStorage.getItem('account');
@@ -21,7 +22,8 @@ function SignIn() {
   const handleSignIn = () => {
     localStorage.setItem('sign-out', JSON.stringify(false));
     setSignOut(false);
-    return <Navigate replace to={'/'} />;
+
+    return navigate('/');
   };
 
   const createAccount = () => {
@@ -80,15 +82,13 @@ function SignIn() {
                 Forgot password?
               </a>
             </div>
-            <Link to={'/'} className='w-10/12'>
-              <button
-                onClick={() => handleSignIn()}
-                className='bg-slate-100 font-bold text-black text-lg py-4 w-full rounded-2xl'
-                disabled={!hasUserAccount}
-              >
-                Sign in
-              </button>
-            </Link>
+            <button
+              onClick={() => handleSignIn()}
+              className='bg-slate-100 font-bold text-black text-lg py-4 w-10/12 rounded-2xl'
+              disabled={!hasUserAccount}
+            >
+              Sign in
+            </button>
           </form>
         </div>
         <div className='flex-1 px-6 py-16'>

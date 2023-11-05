@@ -27,7 +27,7 @@ const ShoppingCartProvider = ({ children }) => {
   const [signOut, setSignOut] = useState(true);
 
   // Account
-  const [account, setAccount] = useState(false);
+  const [account, setAccount] = useState({});
 
   // Shopping cart - Increment quantity
   const [count, setCount] = useState(0);

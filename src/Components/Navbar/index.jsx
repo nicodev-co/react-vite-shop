@@ -6,6 +6,10 @@ import ShoppingCart from '../ShoppingCart';
 const Navbar = () => {
   const { setSearchByCategory, setSignOut, signOut } =
     useContext(ShoppingCartContext);
+
+  const account = localStorage.getItem('account');
+  const parsedAccount = JSON.parse(account);
+
   const activeStyle = 'underline underline-offset-4';
   const handledSignOut = () => {
     localStorage.setItem('sign-out', JSON.stringify(true));
@@ -82,7 +86,7 @@ const Navbar = () => {
       <ul className='flex items-center gap-3'>
         {!signOut ? (
           <>
-            <li className='text-black/60'>nicodev26@gmail.com</li>
+            <li className='text-black/60'>{parsedAccount?.email}</li>
             <li>
               <NavLink
                 to='/my-orders'
